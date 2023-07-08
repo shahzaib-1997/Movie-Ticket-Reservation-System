@@ -1,0 +1,22 @@
+<style>
+    a {
+        color: blue;
+    }
+</style>
+
+<h2>Welcome {{ request.user }}! </h2>
+<h3>
+    This is a Movie Ticket Reservation System.
+</h3>
+
+{% if request.user.is_anonymous %}
+
+<a href="{% url 'register' %}" style="display: block; padding-bottom: 10px;">Register</a>
+
+<a href="{% url 'login' %}">Login</a>
+
+{% else %}
+
+<h2><a href="{% url 'dashboard' %}" >Dashboard</a></h2>
+
+{% endif %}
