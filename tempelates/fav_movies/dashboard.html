@@ -18,9 +18,9 @@
 
 <ul>
     {% for reservation in reservations %}
-    {% if not reservation.showtime.is_past %}
     <li>
-            <p>Movie: {{ reservation.showtime.movie.title }} Showtime: {{ reservation.showtime.date }} - {{ reservation.showtime.time }} Seat No.: {{ reservation.seat_number }}</p>
+        <p>Movie: {{ reservation.showtime.movie.title }} Showtime: {{ reservation.showtime.date }} - {{ reservation.showtime.time }} Seat No.: {{ reservation.seat_number }}</p>
+        {% if not reservation.showtime.is_past %}
             <form action="{% url 'cancel_reservation' reservation.id %}">
                 {% csrf_token %}
                 <button type="submit">Cancel Reservation</button>
@@ -32,4 +32,4 @@
     {% endfor %}
 </ul>
 
-{% endblock  %}
+{% endblock %}

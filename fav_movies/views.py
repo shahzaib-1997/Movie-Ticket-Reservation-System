@@ -79,16 +79,21 @@ def reserve_seat(request, showtime_id):
 
     if request.method == 'POST':
         selected_seats = [int(seat_number) for seat_number in request.POST.getlist('seat_number') if seat_number]
-        for seat_number in selected_seats:
-            Reservation.objects.create(showtime=showtime, user=request.user, seat_number=seat_number)
 
-        send_mail(
-            'Reservation Confirmation',
-            f'Thank you for reserving seat for {showtime.movie.title} on {showtime.date} at {showtime.time}.\nYour reserved seats: {selected_seats}.',
-            EMAIL,
-            [request.user.email],
-            fail_silently=False,
-        )
+        if selected_seats:
+            for seat_number in selected_seats:
+                Reservation.objects.create(showtime=showtime, user=request.user, seat_number=seat_number)
+            
+            send_mail(
+                'Reservation Confirmation',
+                f'Thank you for reserving seat for {showtime.movie.title} on {showtime.date} at {showtime.time}.\nYour reserved seats: {selected_seats}.',
+                EMAIL,
+                [request.user.email],
+                fail_silently=False,
+            )
+        else:
+            messages.error(request,'No seat selected')
+            
         return redirect('reserve_seat', showtime_id=showtime_id)
 
 
