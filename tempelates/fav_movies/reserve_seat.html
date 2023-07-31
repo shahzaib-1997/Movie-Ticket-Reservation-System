@@ -56,7 +56,8 @@
 </form>
 
 {% else %}
-<p>The showtime has passed.</p>
+<p><h2>The showtime {{ showtime.movie.title }} - {{ showtime.date }} {{ showtime.time }} has passed.</h2></p>
+
 {% endif %}
 
 <script>
