@@ -12,7 +12,9 @@
     <h3>Showtimes:</h3>
     <ul>
     {% for showtime in showtimes %}
-        <li><a href="{% url 'reserve_seat' showtime.id %}">{{ showtime.date }} - {{ showtime.time }}</a></li>
+        {% if showtime.is_active %}
+            <li><a href="{% url 'reserve_seat' showtime.id %}">{{ showtime.date }} - {{ showtime.time }}</a></li>
+        {% endif %}
     {% empty %}
         <li>No showtimes available.</li>
     {% endfor %}

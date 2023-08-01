@@ -21,7 +21,7 @@
     background-color: #0f0;  /* Color for selected seats */
 }
 .seat.reserved {
-    background-color: grey;  /* Color for reserved seats */
+    background-color: #f00;  /* Color for reserved seats */
     cursor: not-allowed;
 }
 .seat.reserved.logged-in-user {
@@ -31,16 +31,9 @@
 
 {% block content %}
 
-{% if messages %}
-    {% for message in messages %}
-      <p><strong>{{ message }}</strong></p>
-    {% endfor %}
-{% endif %}
-
-
-{% if showtime.active %}
-<p><h2>Reserve Seat for {{ showtime.movie.title }} - {{ showtime.date }} {{ showtime.time }}</h2></p>
-<p><center><h2>Seating Arrangement</h2></center></p>
+{% if showtime.is_active %}
+<h2>Reserve Seat for {{ showtime.movie.title }} - {{ showtime.date }} {{ showtime.time }}</h2>
+<center><h2>Seating Arrangement</h2></center>
 <form method="POST" action="{% url 'reserve_seat' showtime.id %}">
     {% csrf_token %}
     <div class="seating-diagram">
@@ -51,7 +44,7 @@
         {% endfor %}
     </div>
 
-    <h3>Blue seats are your reserved seats while Grey seats are reserved by other users.</h3>
+    <h3>Blue seats are your reserved seats while Red seats are reserved by other users.</h3>
     <button type="submit">Reserve Selected Seats</button>
 </form>
 

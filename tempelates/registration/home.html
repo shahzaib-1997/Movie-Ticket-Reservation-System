@@ -4,7 +4,7 @@
     }
 </style>
 
-<h2>Welcome {{ request.user }}! </h2>
+<h2>Welcome{% if request.user.is_authenticated %} {{ request.user }} {% endif %}!</h2>
 <h3>
     This is a Movie Ticket Reservation System.
 </h3>

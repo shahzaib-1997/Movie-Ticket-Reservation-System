@@ -1,4 +1,3 @@
-from typing import Any
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -25,7 +24,6 @@ class Showtime(models.Model):
     date = models.DateField()
     time = models.TimeField()
     available_seats = models.PositiveIntegerField()
-    active = models.BooleanField(default=True)  # Add an 'active' field
 
     class Meta:
         ordering = ['date']
@@ -33,10 +31,11 @@ class Showtime(models.Model):
     def __str__(self):
         return f'{self.movie.title}'
 
-    def is_past(self):
+    @property
+    def is_active(self):
         now = timezone.make_naive(timezone.now())
         showtime_datetime = timezone.datetime.combine(self.date, self.time)
-        return showtime_datetime < now
+        return showtime_datetime > now
 
 
 class Reservation(models.Model):

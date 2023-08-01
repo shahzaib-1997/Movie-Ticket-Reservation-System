@@ -1,4 +1,3 @@
-from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -62,7 +61,8 @@ def movie_details(request, movie_id):
 
 def showtime_list(request):
     showtimes = Showtime.objects.all().order_by('date', 'time')
-    paginator = Paginator(showtimes, 10)  # Display 10 showtimes per page
+    active_showtimes = [showtime for showtime in showtimes if showtime.is_active]
+    paginator = Paginator(active_showtimes, 10)  # Display 10 showtimes per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'fav_movies/showtime_list.html', {'page_obj': page_obj})
@@ -70,10 +70,6 @@ def showtime_list(request):
 @login_required
 def reserve_seat(request, showtime_id):
     showtime = Showtime.objects.get(id=showtime_id)
-    if showtime.is_past():
-        showtime.active = False  # Mark the showtime as inactive
-        showtime.save()
-
     reservations = Reservation.objects.filter(showtime=showtime)
     seat_numbers = [reservation.seat_number for reservation in reservations]
 
@@ -118,7 +114,8 @@ def cancel_reservation(request, reservation_id):
 
 @login_required
 def finished(request):
-    reservations = Reservation.objects.filter(user=request.user, showtime__active=False).order_by('showtime', 'seat_number')
+    all_reservations = Reservation.objects.filter(user=request.user).order_by('showtime', 'seat_number')
+    reservations = [reservation for reservation in all_reservations if not reservation.showtime.is_active]
     return render(request, 'fav_movies/finished.html', {'reservations': reservations})
 
 

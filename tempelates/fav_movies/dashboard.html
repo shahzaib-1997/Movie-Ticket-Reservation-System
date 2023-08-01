@@ -18,17 +18,17 @@
 
 <ul>
     {% for reservation in reservations %}
-    <li>
-        <p>Movie: {{ reservation.showtime.movie.title }} Showtime: {{ reservation.showtime.date }} - {{ reservation.showtime.time }} Seat No.: {{ reservation.seat_number }}</p>
-        {% if not reservation.showtime.is_past %}
-            <form action="{% url 'cancel_reservation' reservation.id %}">
-                {% csrf_token %}
-                <button type="submit">Cancel Reservation</button>
-            </form>
-    </li>
-    {% endif %}
+        {% if reservation.showtime.is_active %}
+            <li>
+                <p>Movie: {{ reservation.showtime.movie.title }} Showtime: {{ reservation.showtime.date }} - {{ reservation.showtime.time }} Seat No.: {{ reservation.seat_number }}</p>
+                <form action="{% url 'cancel_reservation' reservation.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Cancel Reservation</button>
+                </form>
+            </li>
+        {% endif %}
     {% empty %}
-    <li>No reservations found.</li>
+        <li>No reservations found.</li>
     {% endfor %}
 </ul>
 

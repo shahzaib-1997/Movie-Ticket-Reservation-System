@@ -8,11 +8,9 @@
 
 <ul>
     {% for reservation in reservations %}
-    {% if reservation.showtime.is_past %}
         <li>
             <p>Movie: {{ reservation.showtime.movie.title }} Showtime: {{ reservation.showtime.date }} - {{ reservation.showtime.time }} Seat No.: {{ reservation.seat_number }}</p>
         </li>
-    {% endif %}
     {% empty %}
     <li>No finished shows.</li>
     {% endfor %}

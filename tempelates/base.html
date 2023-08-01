@@ -1,43 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Ticket Reservation System</title>
-    <style>
-        a {
-            color: blue;
-        }
-    
-        h2{
-            display: inline;
-            padding-right: 35px;
-        }
-        {% block style %}{% endblock  %}
-    </style>
-    
-</head>
-<body>
 
-    <div class="container" style="margin-bottom: 20px;">
-        <nav>
-            <h2><a href="{% url 'dashboard' %}" style="text-decoration: none;">Dashboard</a></h2>
-            <h2>Hi {{request.user}}</h2>                            
-            <a href="{% url 'logout' %}" >Logout</a>
-            <span>
-                <p> Current time: {% now "Y-m-d G:i:s" %}</p>
-            </span>    
-        </nav>
-    </div>
-    
-    <div>
-        Browse <a href="{% url 'movie_list' %}"> Movies</a> or <a href="{% url 'showtime_list' %}"> Showtimes</a>.
-    </div>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Movie Ticket Reservation System</title>
+		<style>
+			a {
+				color: blue;
+			}
 
-    {% block content %}
-    {% endblock %}
-    
-</body>
+			h1 {
+				display: inline;
+				padding-right: 35px;
+			}
+
+				{% block style %}
+
+				{% endblock %}
+		</style>
+
+	</head>
+
+	<body>
+
+		{% if messages %}
+		{% for message in messages %}
+		<p><strong>{{ message }}</strong></p>
+		{% endfor %}
+		{% endif %}
+
+
+		<div class="container" style="margin-bottom: 20px;">
+			<nav>
+				<h1><a href="{% url 'dashboard' %}" style="text-decoration: none;">Dashboard</a></h1>
+				<h1>Hi {{request.user}}</h1>
+				<a href="{% url 'logout' %}">Logout</a>
+				<span>
+					<p> Current time: {% now "Y-m-d G:i:s" %}</p>
+				</span>
+			</nav>
+		</div>
+
+		<div>
+			Browse <a href="{% url 'movie_list' %}"> Movies</a> or <a href="{% url 'showtime_list' %}"> Showtimes</a>.
+		</div>
+
+		{% block content %}
+		{% endblock %}
+
+	</body>
+
 </html>
-
-
