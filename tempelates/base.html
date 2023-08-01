@@ -33,9 +33,9 @@
 
 		<div class="container" style="margin-bottom: 20px;">
 			<nav>
-				<h1><a href="{% url 'dashboard' %}" style="text-decoration: none;">Dashboard</a></h1>
+				<h1><a href="{% url 'fav_movies:dashboard' %}" style="text-decoration: none;">Dashboard</a></h1>
 				<h1>Hi {{request.user}}</h1>
-				<a href="{% url 'logout' %}">Logout</a>
+				<a href="{% url 'fav_movies:logout' %}">Logout</a>
 				<span>
 					<p> Current time: {% now "Y-m-d G:i:s" %}</p>
 				</span>
@@ -43,7 +43,7 @@
 		</div>
 
 		<div>
-			Browse <a href="{% url 'movie_list' %}"> Movies</a> or <a href="{% url 'showtime_list' %}"> Showtimes</a>.
+			Browse <a href="{% url 'fav_movies:movie_list' %}"> Movies</a> or <a href="{% url 'fav_movies:showtime_list' %}"> Showtimes</a>.
 		</div>
 
 		{% block content %}

@@ -10,7 +10,7 @@
         {% for showtime in page_obj %}
             {% if showtime.is_active %}
                 <li>
-                    <a href="{% url 'reserve_seat' showtime.id %}" style="color : blue">
+                    <a href="{% url 'fav_movies:reserve_seat' showtime.id %}" style="color : blue">
                         {{ showtime.movie.title }} - {{ showtime.date }} {{ showtime.time }}
                     </a>
                 </li>        

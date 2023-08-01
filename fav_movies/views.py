@@ -17,11 +17,11 @@ class RegisterView(FormView):
     template_name = 'registration/register.html'
     form_class = RegisterForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('fav_movies:login')
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('dashboard')  # Redirect to the dashboard page if user is already authenticated
+            return redirect('fav_movies:dashboard')  # Redirect to the dashboard page if user is already authenticated
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -36,7 +36,7 @@ class MyLoginView(LoginView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('dashboard') 
+        return reverse_lazy('fav_movies:dashboard') 
 
     def form_invalid(self, form):
         messages.error(self.request,'Invalid username or password')
@@ -90,7 +90,7 @@ def reserve_seat(request, showtime_id):
         else:
             messages.error(request,'No seat selected')
             
-        return redirect('reserve_seat', showtime_id=showtime_id)
+        return redirect('fav_movies:reserve_seat', showtime_id=showtime_id)
 
 
     reserves = Reservation.objects.filter(user=request.user, showtime=showtime)
@@ -109,7 +109,7 @@ def cancel_reservation(request, reservation_id):
     reservation = Reservation.objects.get(id=reservation_id)
     if request.method == 'POST':
         reservation.delete()
-        return redirect('dashboard')
+        return redirect('fav_movies:dashboard')
     return render(request, 'fav_movies/cancel_reservation.html', {'reservation': reservation})
 
 @login_required
@@ -127,4 +127,4 @@ def movie_search(request):
 
         return render(request, 'fav_movies/movie_search.html', {'movies': movies,})
 
-    return redirect('dashboard')
+    return redirect('fav_movies:dashboard')

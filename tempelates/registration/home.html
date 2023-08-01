@@ -11,12 +11,12 @@
 
 {% if request.user.is_anonymous %}
 
-<a href="{% url 'register' %}" style="display: block; padding-bottom: 10px;">Register</a>
+<a href="{% url 'fav_movies:register' %}" style="display: block; padding-bottom: 10px;">Register</a>
 
-<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'fav_movies:login' %}">Login</a>
 
 {% else %}
 
-<h2><a href="{% url 'dashboard' %}" >Dashboard</a></h2>
+<h2><a href="{% url 'fav_movies:dashboard' %}" >Dashboard</a></h2>
 
 {% endif %}

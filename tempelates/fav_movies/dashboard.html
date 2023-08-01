@@ -3,13 +3,13 @@
 
 {% block content %}
 
-<p><form method="GET" action="{% url 'movie_search' %}">
+<p><form method="GET" action="{% url 'fav_movies:movie_search' %}">
     <input type="text" placeholder="Search Movies Here" name="query" required>
     <button type="submit">Search</button>
 </form>
 </p>
 <p>
-    <a href="{% url 'finished' %}" >Your finished booked shows.</a>
+    <a href="{% url 'fav_movies:finished' %}" >Your finished booked shows.</a>
 </p>
 
 <h3>
@@ -21,7 +21,7 @@
         {% if reservation.showtime.is_active %}
             <li>
                 <p>Movie: {{ reservation.showtime.movie.title }} Showtime: {{ reservation.showtime.date }} - {{ reservation.showtime.time }} Seat No.: {{ reservation.seat_number }}</p>
-                <form action="{% url 'cancel_reservation' reservation.id %}">
+                <form action="{% url 'fav_movies:cancel_reservation' reservation.id %}">
                     {% csrf_token %}
                     <button type="submit">Cancel Reservation</button>
                 </form>

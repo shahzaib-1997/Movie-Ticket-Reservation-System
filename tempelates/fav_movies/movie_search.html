@@ -2,7 +2,7 @@
 
 {% block content %}
     
-<form method="GET" action="{% url 'movie_search' %}">
+<form method="GET" action="{% url 'fav_movies:movie_search' %}">
     <input type="text" name="query" required>
     <button type="submit">Search</button>
 </form>
@@ -13,7 +13,7 @@
     <li>
         <h2>{{ movie.title }}</h2>
         <p>{{ movie.description }}</p>
-        <a href="{% url 'movie_details' movie.id %}">View Details</a>
+        <a href="{% url 'fav_movies:movie_details' movie.id %}">View Details</a>
     </li>
     {% empty %}
     <li>No movies found.</li>
