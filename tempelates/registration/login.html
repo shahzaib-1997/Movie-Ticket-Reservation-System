@@ -3,13 +3,17 @@
         <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
 {% endif %}
+{% extends 'base.html' %}
 
+{% block style %}
 <style>
     a {
         color: blue;
     }
 </style>
+{% endblock  %}
 
+{% block content %}
 <h2>Login</h2>
 <form method="POST">
     {% csrf_token %}
@@ -25,3 +29,4 @@
 </form>
 
 <a href="{% url 'fav_movies:register' %}">Register</a>
+{% endblock  %}

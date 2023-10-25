@@ -1,4 +1,6 @@
-{%load static %}
+{% extends 'base.html' %}
+
+{% block content %}
 <div class="center">
     <h2>Register</h2>
     <form method="POST">
@@ -9,3 +11,4 @@
     <a href="{% url 'fav_movies:login' %}" style="color: blue;">Login</a>
 
 </div>
+{% endblock  %}

@@ -8,7 +8,7 @@ from .models import Movie, Showtime, Reservation
 from .forms import RegisterForm
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
-from movie_reservation_system.credentials import EMAIL
+from decouple import config
 
 def home(request):
     return render(request, 'registration/home.html')
@@ -83,7 +83,7 @@ def reserve_seat(request, showtime_id):
             send_mail(
                 'Reservation Confirmation',
                 f'Thank you for reserving seat for {showtime.movie.title} on {showtime.date} at {showtime.time}.\nYour reserved seats: {selected_seats}.',
-                EMAIL,
+                config("EMAIL"),
                 [request.user.email],
                 fail_silently=False,
             )
